@@ -1,0 +1,15 @@
+[Unit]
+Description=FoxVote Frontend (Express + EJS)
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+WorkingDirectory=/opt/foxvote
+ExecStart=/usr/bin/npm run start --workspace frontend
+Restart=always
+RestartSec=5
+EnvironmentFile=/opt/foxvote/frontend/.env
+
+[Install]
+WantedBy=multi-user.target

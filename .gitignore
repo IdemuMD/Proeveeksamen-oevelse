@@ -1,0 +1,10 @@
+node_modules/
+.env
+.env.local
+coverage/
+.nyc_output/
+*.log
+.DS_Store
+.codex/
+backend/node_modules/
+frontend/node_modules/
