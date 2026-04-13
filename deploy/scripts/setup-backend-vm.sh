@@ -5,6 +5,7 @@ REPO_URL="${REPO_URL:-https://github.com/IdemuMD/Proeveeksamen-oevelse.git}"
 APP_DIR="${APP_DIR:-/opt/foxvote}"
 FRONTEND_IP="${FRONTEND_IP:-10.12.2.221}"
 DB_IP="${DB_IP:-10.12.2.220}"
+BRANCH="${BRANCH:-vm/backend-10.12.2.222}"
 
 install_node_22() {
   if command -v node >/dev/null 2>&1; then
@@ -28,13 +29,15 @@ echo "[backend] Cloning/updating app repo..."
 if [ ! -d "${APP_DIR}/.git" ]; then
   sudo mkdir -p "${APP_DIR}"
   sudo chown -R "$USER:$USER" "${APP_DIR}"
-  git clone "${REPO_URL}" "${APP_DIR}"
+  git clone --branch "${BRANCH}" --single-branch "${REPO_URL}" "${APP_DIR}"
 else
-  git -C "${APP_DIR}" pull --ff-only
+  git -C "${APP_DIR}" fetch origin "${BRANCH}"
+  git -C "${APP_DIR}" checkout "${BRANCH}"
+  git -C "${APP_DIR}" pull --ff-only origin "${BRANCH}"
 fi
 
 cd "${APP_DIR}"
-npm ci
+npm --prefix backend install
 
 if [ ! -f backend/.env ]; then
   cp backend/.env.example backend/.env
