@@ -1,71 +1,15 @@
-# FoxVote
+# FoxVote MongoDB VM Branch
 
-FoxVote er en 3-lags webapplikasjon der brukeren velger den søteste reven mellom to tilfeldige bilder.
-Systemet lagrer stemmer i MongoDB og viser live statistikk over mest populære rever.
+This branch contains only files required to run the MongoDB VM (`10.12.2.220`).
 
-## Stack
-- Frontend: Node.js + Express + EJS
-- Backend: Node.js + Express + MongoDB (Mongoose)
-- Database: MongoDB
-- CI/CD: GitHub Actions
+## Includes
+- MongoDB sample config: `deploy/mongod.conf.sample`
+- DB firewall script: `deploy/scripts/ufw-db.sh`
+- DB setup script: `deploy/scripts/setup-db-vm.sh`
 
-## Lokal kjøring (utvikling)
-
-### 1. Installer avhengigheter
+## Quick setup on DB VM
 ```bash
-npm install
-```
-
-### 2. Lag miljøfiler
-```bash
-cp backend/.env.example backend/.env
-cp frontend/.env.example frontend/.env
-```
-
-Oppdater `backend/.env` og `frontend/.env` ved behov.
-
-### 3. Start tjenester
-```bash
-npm run start
-```
-
-- Frontend: `http://localhost:3000`
-- Backend: `http://localhost:4000`
-- Swagger: `http://localhost:4000/api/docs`
-
-## VM-oppsett (eksamen/testmiljø)
-Standard IP-plan i denne leveransen:
-- DB VM: `10.12.2.220`
-- Frontend VM: `10.12.2.221`
-- Backend VM: `10.12.2.222`
-
-Hurtigoppsett scripts:
-- `deploy/scripts/setup-frontend-vm.sh`
-- `deploy/scripts/setup-backend-vm.sh`
-- `deploy/scripts/setup-db-vm.sh`
-
-## Tester, lint og build
-```bash
-npm run lint
-npm run test
-npm run build
-```
-
-## Prosjektdokumentasjon
-- [Arkitektur og IP-plan](docs/architecture.md)
-- [API-endepunkter](docs/api-endpoints.md)
-- [Driftsoppsett](docs/operations.md)
-- [CI/CD](docs/cicd.md)
-- [Sikkerhet](docs/security.md)
-- [Brukerveiledning](docs/user-guide.md)
-- [Demo-checkliste](docs/demo-checklist.md)
-
-## Struktur
-```
-.
-├── backend/
-├── frontend/
-├── deploy/
-├── docs/
-└── .github/workflows/
+git clone --branch vm/db-10.12.2.220 --single-branch https://github.com/IdemuMD/Proeveeksamen-oevelse.git /opt/foxvote
+cd /opt/foxvote
+bash deploy/scripts/setup-db-vm.sh
 ```
